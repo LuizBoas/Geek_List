@@ -1,0 +1,145 @@
+.container {
+    width: 100%;
+    max-width: 960px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.container h1 {
+    flex-direction: column-reverse;
+    color: black;
+}
+
+.container li {
+    width: 100%;
+    padding: 10px;
+    height: auto;
+    margin: 10px auto;
+}
+
+.profile {
+    width: 100%;
+    max-width: 1180px;
+    padding: 0 30px;
+    margin: 32px auto;
+}
+
+.button {
+    max-width: 180px;
+}
+
+.stock ul {
+    width: 100%;
+    display: block;
+    float: left;
+    padding: 10px;
+    background: #FFF;
+    border-radius: 8px;
+}
+
+.stock li {
+    width: 100%;
+    display: block;
+    float: left;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.stock li:hover{
+    filter: brightness(95%);
+}
+
+.normal {
+    background-color: transparent;
+}
+
+.esgotado {
+    background-color: #F00;
+    opacity:0.7;
+    
+}
+
+.baixo {
+    background-color: #FF0;
+    opacity:0.7;
+    
+}
+
+.superior-header {
+    width: 100%;
+    float: left;
+}
+
+.sub-header {
+    width: 100%;
+    float: left;
+}
+
+.profile {
+    width: 65%;
+    float: left;
+    margin: 54px auto;
+}
+
+.profile img {
+    width: 50px;
+    float: left;
+    margin-right: 10px;
+    border-radius: 18px;
+}
+
+.new-logout {
+    float: right;
+    width: 400px;
+    margin-left: 100px;
+    margin-bottom: 100px;
+    margin-top: -100px;
+    margin-left: 100px;
+}
+
+.new-logout .button {
+    margin: 5px 0;
+}
+
+.product-header {
+    display: block;
+    float: left;
+    width: 80%;
+    margin-bottom: 15px;
+}
+
+.product-header p {
+    font-size: 18px;
+}
+
+.stock li img {
+    width: 40%;
+    float: left;
+    margin-right: 15px;
+}
+
+.buttons {
+    float: left;
+    width: 20%;
+}
+
+.buttons .button {
+    float: left;
+    width: 100%;
+    margin:10px;
+}
+
+.product {
+    width: 45%;
+}
+
+.logout { 
+    width: 40%;
+}
+
+.logo {
+    width: 15%;
+    float: left;
+}
+
+ 
