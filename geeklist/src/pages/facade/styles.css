@@ -1,145 +1,141 @@
-.container {
-    width: 100%;
-    max-width: 960px;
-    position: relative;
-    margin: 0 auto;
+#page-landing {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--color-text-in-primary);
+  background: var(--color-primary);
 }
 
-.container h1 {
-    flex-direction: column-reverse;
-    color: black;
+.logo-container img {
+  height: 10rem;
 }
 
-.container li {
-    width: 100%;
-    padding: 10px;
-    height: auto;
-    margin: 10px auto;
+.hero-image {
+  width: 100%;
 }
 
-.profile {
-    width: 100%;
-    max-width: 1180px;
-    padding: 0 30px;
-    margin: 32px auto;
+.logo-container {
+  text-align: center;
+  margin-bottom: 3.2rem;
 }
 
-.button {
-    max-width: 180px;
+.logo-container h2 {
+  font-weight: 500;
+  font-size: 2.4rem;
+  line-height: 4.6rem;
+  margin-top: 0.8rem;
 }
 
-.stock ul {
-    width: 100%;
-    display: block;
-    float: left;
-    padding: 10px;
-    background: #FFF;
-    border-radius: 8px;
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin: 3.2rem 0;
 }
 
-.stock li {
-    width: 100%;
-    display: block;
-    float: left;
-    padding: 10px;
-    border-radius: 8px;
+.buttons-container a {
+  width: 30rem;
+  height: 10.4rem;
+  border-radius: 0.8rem;
+  font: 700 2rem Archivo;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  color: var(--color-button-text);
+
+  transition: background-color 0.2s;
 }
 
-.stock li:hover{
-    filter: brightness(95%);
+.buttons-container a:first-child {
+  margin-right: 1.6rem;
 }
 
-.normal {
-    background-color: transparent;
+.buttons-container a img {
+  width: 4rem;
 }
 
-.esgotado {
-    background-color: #F00;
-    opacity:0.7;
-    
+.buttons-container a.study {
+  background: var(--color-primary-lighter);
 }
 
-.baixo {
-    background-color: #FF0;
-    opacity:0.7;
-    
+.buttons-container a.give-classes {
+  background: var(--color-secundary);
 }
 
-.superior-header {
-    width: 100%;
-    float: left;
+.buttons-container a.study:hover {
+  background: var(--color-primary-light);
 }
 
-.sub-header {
-    width: 100%;
-    float: left;
+.buttons-container a.give-classes:hover {
+  background: var(--color-secundary-dark);
 }
 
-.profile {
-    width: 65%;
-    float: left;
-    margin: 54px auto;
+.total-connections {
+  font-size: 1.4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.profile img {
-    width: 50px;
-    float: left;
-    margin-right: 10px;
-    border-radius: 18px;
+.total-connections img {
+  margin-left: 0.8rem;
 }
 
-.new-logout {
-    float: right;
-    width: 400px;
-    margin-left: 100px;
-    margin-bottom: 100px;
-    margin-top: -100px;
-    margin-left: 100px;
-}
+@media (min-width: 1100px) {
+  #page-landing-content {
+    max-width: 1100px;
 
-.new-logout .button {
-    margin: 5px 0;
-}
+    display: grid;
+    grid-template-rows: 350px 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-areas:
+      "logo hero hero"
+      "buttons buttons total";
+  }
 
-.product-header {
-    display: block;
-    float: left;
-    width: 80%;
-    margin-bottom: 15px;
-}
+  .logo-container {
+    grid-area: logo;
+    align-self: center;
+    text-align: left;
+    margin: 0;
+  }
 
-.product-header p {
-    font-size: 18px;
-}
+  .logo-container h2 {
+    text-align: initial;
+    font-size: 3.6rem;
+  }
 
-.stock li img {
-    width: 40%;
-    float: left;
-    margin-right: 15px;
-}
+  .logo-container img {
+    height: 100%;
+  }
 
-.buttons {
-    float: left;
-    width: 20%;
-}
+  .hero-image {
+    grid-area: hero;
+    justify-self: end;
+  }
 
-.buttons .button {
-    float: left;
-    width: 100%;
-    margin:10px;
-}
+  .buttons-container {
+    grid-area: buttons;
+    justify-content: flex-start;
+  }
 
-.product {
-    width: 45%;
-}
+  .buttons-container a {
+    font-size: 2.4rem;
+  }
 
-.logout { 
-    width: 40%;
-}
+  .buttons-container a img {
+    margin-right: 2.4rem;
+  }
 
-.logo {
-    width: 15%;
-    float: left;
+  .total-connections {
+    grid-area: total;
+    justify-self: end;
+  }
 }
-
- 

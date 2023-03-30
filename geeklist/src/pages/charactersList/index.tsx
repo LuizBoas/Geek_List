@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, FormEvent, useEffect } from "react";
 import PageHeader from "../../components/PageHeader";
-import CharacterItem, { Character } from "../../components/characterItem";
+import CharacterItem, { Character } from "../../components/CharacterItem";
 
 import "./styles.css";
 import Input from "../../components/Input";
