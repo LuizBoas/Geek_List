@@ -3,41 +3,38 @@ import { Link } from "react-router-dom";
 
 import "./styles.css";
 
-import logoImg from "../../assets/images/123.png";
-import landingImg from "../../assets/images/capaa.svg";
+import logoImg from "../../assets/images/logo.png";
+import imageFacade from "../../assets/images/image-facade.png";
+import { AiOutlineUpCircle } from "react-icons/ai";
 
 import studyIcon from "../../assets/images/icons/study.svg";
-import giveClassesIcon from "../../assets/images/icons/give-classes.svg";
-import purpleHeartIcon from "../../assets/images/icons/purple-heart.svg";
 
-function Landing(): ReactElement {
+function Facade(): ReactElement {
   return (
-    <div id="page-landing">
-      <div id="page-landing-content" className="container">
+    <div id="page-facade">
+      <div id="page-facade-content" className="container">
         <div className="logo-container">
-          <img src={logoImg} alt="Proffy" />
-          <h2>Sua plataforma de estudos online.</h2>
+          <img src={logoImg} alt="Geek List" />
+          <h2>
+            Explore o multiverso de Rick and Morty com nossa plataforma de
+            personagens.
+          </h2>
         </div>
         <img
-          src={landingImg}
-          alt="Plataforma de estudos"
+          src={imageFacade}
+          alt="Imagem da série Rick and Morty"
           className="hero-image"
         />
 
-        <div className="buttons-container">
-          <Link to="/list" className="study">
-            <img src={studyIcon} alt="Entrar" />
+        <div className="button-container">
+          <Link to="/list">
+            <AiOutlineUpCircle size={45} className="button-container-img" />
             Entrar
           </Link>
         </div>
-
-        {/* <span className="total-connections">
-          Total de conexões já realizadas
-          <img src={purpleHeartIcon} alt="Coração roxo" />
-        </span> */}
       </div>
     </div>
   );
 }
 
-export default Landing;
+export default Facade;
