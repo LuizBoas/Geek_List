@@ -1,4 +1,10 @@
-import React, { ReactElement, useState, FormEvent, useEffect } from "react";
+import React, {
+  ReactElement,
+  useState,
+  FormEvent,
+  useEffect,
+  useRef,
+} from "react";
 import PageHeader from "../../components/PageHeader";
 import CharacterItem, { Character } from "../../components/CharacterItem";
 
@@ -6,85 +12,91 @@ import "./styles.css";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import axios from "axios";
+import { FaSpinner } from "react-icons/fa";
 
 function CharactersList(): ReactElement {
   const [subject, setSubject] = useState("");
   const [weekDay, setWeekDay] = useState("");
   const [time, setTime] = useState("");
 
-  const [characters, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [filter, setFilter] = useState<string>("");
+
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     axios
-      .get("https://rickandmortyapi.com/api/character")
+      .get(
+        `https://rickandmortyapi.com/api/character?page=${page}&name=${filter}`
+      )
       .then((response) => {
-        setCharacters(response.data.results);
-        console.log(response.data);
+        setCharacters((prevCharacters) => [
+          ...prevCharacters,
+          ...response.data.results,
+        ]);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [page, filter]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        bottomRef.current &&
+        window.innerHeight + window.scrollY >= bottomRef.current.offsetTop
+      ) {
+        setLoading(true);
+        setPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  return (
-    <div id="page-teacher-list" className="container">
-      <PageHeader title="Personagens de Rick and Morty">
-        <form id="search-teachers">
-          <Select
-            name="subject"
-            label="Matéria"
-            value={subject}
-            // onChange={(e) => {
-            //   setSubject(e.target.value);
-            // }}
-            options={[
-              { value: "Artes", label: "Artes" },
-              { value: "Biologia", label: "Biologia" },
-              { value: "Ciências", label: "Ciências" },
-              { value: "Educação Física", label: "Educação Física" },
-              { value: "Física", label: "Física" },
-              { value: "Geografia", label: "Geografia" },
-              { value: "Química", label: "Química" },
-              { value: "História", label: "História" },
-              { value: "Matemática", label: "Matemática" },
-              { value: "Português", label: "Português" },
-              { value: "Inglês", label: "Inglês" },
-            ]}
-          />
-          <Select
-            name="week_day"
-            label="Dia da Semana"
-            value={weekDay}
-            onChange={(e) => {
-              setWeekDay(e.target.value);
-            }}
-            options={[
-              { value: "0", label: "Domingo" },
-              { value: "1", label: "Segunda-feira" },
-              { value: "2", label: "Terça-feira" },
-              { value: "3", label: "Quarta-feira" },
-              { value: "4", label: "Quinta-feira" },
-              { value: "5", label: "Sexta-feira" },
-              { value: "6", label: "Sábado" },
-            ]}
-          />
-          <Input
-            name="time"
-            label="Hora"
-            type="time"
-            value={time}
-            // onChange={(e) => {
-            //   setTime(e.target.value);
-            // }}
-          />
+  useEffect(() => {
+    setCharacters([]);
+    setPage(1);
+  }, [filter]);
 
-          <button type="submit">Buscar</button>
+  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(event.target.value);
+  };
+
+  return (
+    <div id="page-characters-list" className="container">
+      <PageHeader title="Conheça os personagens complexos e multifacetados de Rick and Morty!">
+        <form
+          id="search-characters"
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <Input
+            id="search-characters-input"
+            name="name"
+            value={filter}
+            onChange={handleFilterChange}
+            placeholder="Pesquise pelo nome do personagem"
+          />
         </form>
       </PageHeader>
 
       <main>
-        console.log(character)
         {characters.map((characters: Character) => {
           return <CharacterItem key={characters.id} character={characters} />;
         })}
+        {loading && (
+          <div className="loading-container">
+            <FaSpinner className="spinner" />
+          </div>
+        )}
+        <div ref={bottomRef} />
       </main>
     </div>
   );

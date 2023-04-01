@@ -5,7 +5,7 @@ import "./styles.css";
 
 import logoImg from "../../assets/images/logo.png";
 import imageFacade from "../../assets/images/image-facade.png";
-import { AiOutlineUpCircle } from "react-icons/ai";
+import { BsBoxArrowInRight } from "react-icons/bs";
 
 import studyIcon from "../../assets/images/icons/study.svg";
 
@@ -28,7 +28,7 @@ function Facade(): ReactElement {
 
         <div className="button-container">
           <Link to="/list">
-            <AiOutlineUpCircle size={45} className="button-container-img" />
+            <BsBoxArrowInRight size={50} className="button-container-img" />
             Entrar
           </Link>
         </div>

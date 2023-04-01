@@ -24,17 +24,14 @@ const CharacterItem: React.FC<CharacterItemProps> = ({
         <img src={character.image} alt={character.name} />
         <div>
           <strong>{character.name}</strong>
-          <span>{character.subject}</span>
+          <span>SSSSSS</span>
         </div>
       </header>
-      <p>{character.bio}</p>
+      <p>SSSSS</p>
       <footer>
         <p>
           Preço/hora
-          <strong>
-            R$
-            {character.cost}
-          </strong>
+          <strong>R$ SSSSSS</strong>
         </p>
       </footer>
     </article>
