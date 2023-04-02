@@ -6,22 +6,27 @@ import "./styles.css";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import axios from "axios";
-import { FaSpinner } from "react-icons/fa";
 
 function CharactersList(): ReactElement {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
   const [filter, setFilter] = useState<string>("");
-  const [favorites, setFavorites] = useState<number[]>([]);
-  // const [typeSearch, setTypeSerch] = useState
+  const [favorites, setFavorites] = useState<number[]>(
+    JSON.parse(localStorage.getItem("favorites") || "[]")
+  );
+  const [typeSearch, setTypeSearch] = useState<string>("");
+  const [showFavorites, setShowFavorites] = useState<boolean>(false);
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  useEffect(() => {
     axios
       .get(
-        `https://rickandmortyapi.com/api/character?page=${page}&name=${filter}`
+        `https://rickandmortyapi.com/api/character?page=${page}&${typeSearch}=${filter}`
       )
       .then((response) => {
         setCharacters((prevCharacters) => [
@@ -29,11 +34,8 @@ function CharactersList(): ReactElement {
           ...response.data.results,
         ]);
       })
-      .catch((error) => console.log(error))
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [page, filter]);
+      .catch((error) => console.log(error));
+  }, [page, filter, typeSearch]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +43,6 @@ function CharactersList(): ReactElement {
         bottomRef.current &&
         window.innerHeight + window.scrollY >= bottomRef.current.offsetTop
       ) {
-        setLoading(true);
         setPage((prevPage) => prevPage + 1);
       }
     };
@@ -56,7 +57,7 @@ function CharactersList(): ReactElement {
   useEffect(() => {
     setCharacters([]);
     setPage(1);
-  }, [filter]);
+  }, [filter, typeSearch]);
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
@@ -71,6 +72,7 @@ function CharactersList(): ReactElement {
     } else {
       setFavorites([...favorites, id]);
     }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   }
 
   return (
@@ -80,47 +82,98 @@ function CharactersList(): ReactElement {
           id="search-characters"
           onSubmit={(event) => event.preventDefault()}
         >
-          {/* <Select
-						name="select"
-						// value={subject}
-						// onChange={e => {
-						// 	setSubject(e.target.value);
-						// }}
-						options={[
-							{ value: 'Artes', label: 'Artes' },
-							{ value: 'Biologia', label: 'Biologia' },
-							{ value: 'Ciências', label: 'Ciências' },
-							{ value: 'Educação Física', label: 'Educação Física' },
-							{ value: 'Física', label: 'Física' },
-							{ value: 'Geografia', label: 'Geografia' },
-							{ value: 'Química', label: 'Química' },
-							{ value: 'História', label: 'História' },
-							{ value: 'Matemática', label: 'Matemática' },
-							{ value: 'Português', label: 'Português' },
-							{ value: 'Inglês', label: 'Inglês' },
-						]}
-					/> */}
-          <Input
-            id="search-characters-input"
-            name="name"
-            value={filter}
-            onChange={handleFilterChange}
-            placeholder="Pesquise pelo nome do personagem"
+          <Select
+            placeholder="Selecione uma opção pra filtrar os persornagens"
+            name="select"
+            value={typeSearch}
+            onChange={(e) => {
+              if (e.target.value === "favorite") {
+                setShowFavorites(true);
+              } else {
+                setShowFavorites(false);
+              }
+              setTypeSearch(e.target.value);
+              setFilter("");
+            }}
+            options={[
+              { value: "name", label: "Nome" },
+              { value: "species", label: "Espécie" },
+              { value: "status", label: "Status de vida" },
+              { value: "location", label: "Localização" },
+              { value: "favorite", label: "Favoritos" },
+            ]}
           />
+          {typeSearch === "name" && (
+            <Input
+              id="search-characters-input"
+              name="name"
+              value={filter}
+              onChange={handleFilterChange}
+              placeholder="Pesquise pelo nome do personagem"
+            />
+          )}
+          {typeSearch === "species" && (
+            <Input
+              id="search-characters-input"
+              name="name"
+              value={filter}
+              onChange={handleFilterChange}
+              placeholder="Pesquise pela espécie do personagem"
+            />
+          )}
+          {typeSearch === "status" && (
+            <Select
+              placeholder="Selecione uma opçao de status do personagem"
+              name="select"
+              value={filter}
+              onChange={(e) => {
+                setFilter(e.target.value);
+              }}
+              options={[
+                { label: "Personagem está vivo(a)", value: "Alive" },
+                { label: "Personagem está morto(a)", value: "Dead" },
+                {
+                  label: "Status de vida desconhecido",
+                  value: "unknown",
+                },
+              ]}
+            />
+          )}
+          {typeSearch === "location" && (
+            <Input
+              id="search-characters-input"
+              name="name"
+              value={filter}
+              onChange={handleFilterChange}
+              placeholder="Pesquise pelo localização do personagem"
+            />
+          )}
         </form>
       </PageHeader>
 
       <main>
-        {characters.map((characters: Character) => {
-          return (
-            <CharacterItem
-              key={characters.id}
-              character={characters}
-              onFavorite={handleFavorite}
-              isFavorite={favorites.includes(characters.id)}
-            />
-          );
-        })}
+        {showFavorites &&
+          characters
+            .filter((character) => favorites.includes(character.id))
+            .map((character) => (
+              <CharacterItem
+                key={character.id}
+                character={character}
+                onFavorite={handleFavorite}
+                isFavorite={favorites.includes(character.id)}
+              />
+            ))}
+        {!showFavorites &&
+          characters.map((characters: Character) => {
+            return (
+              <CharacterItem
+                key={characters.id}
+                character={characters}
+                onFavorite={handleFavorite}
+                isFavorite={favorites.includes(characters.id)}
+              />
+            );
+          })}
         <div ref={bottomRef} />
       </main>
     </div>

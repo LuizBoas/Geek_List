@@ -8,12 +8,7 @@ import {
   typeTranslations,
   statusTranslations,
 } from "./../../constants/character";
-import {
-  FaRegSmile,
-  FaSkull,
-  FaMapMarkedAlt,
-  FaRegQuestionCircle,
-} from "react-icons/fa";
+import { FaHeart, FaMapMarkedAlt, FaRegHeart } from "react-icons/fa";
 import { IoMdPlanet } from "react-icons/io";
 import { BsGenderTrans } from "react-icons/bs";
 import { GiAbstract023, GiCrenulatedShield } from "react-icons/gi";
@@ -25,8 +20,10 @@ import "./styles.css";
 function CharacterDetail(): ReactElement {
   const { id } = useParams();
   const [character, setCharacter] = useState<Character>();
-
-  useEffect(() => {}, [id]);
+  debugger;
+  const [favorites, setFavorites] = useState<number[]>(
+    JSON.parse(localStorage.getItem("favorites") || "[]")
+  );
 
   useEffect(() => {
     axios
@@ -37,40 +34,22 @@ function CharacterDetail(): ReactElement {
       .catch((error) => console.log(error));
   }, [id]);
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "Alive":
-        return (
-          <FaRegSmile
-            title={character ? `${character.name} está vivo(a)!` : "Carregando"}
-            color="green"
-            size={25}
-          />
-        );
-      case "Dead":
-        return (
-          <FaSkull
-            title={
-              character ? `${character.name} está morto(a)!` : "Carregando"
-            }
-            color="red"
-            size={25}
-          />
-        );
-      default:
-        return (
-          <FaRegQuestionCircle
-            title={
-              character
-                ? `Não se sabe o status de vida de ${character.name}!`
-                : "Carregando"
-            }
-            color="gray"
-            size={25}
-          />
-        );
+  function handleFavorite(id: number) {
+    const index = favorites.findIndex((favoriteId) => favoriteId === id);
+    if (index >= 0) {
+      const newFavorites = [...favorites];
+      newFavorites.splice(index, 1);
+      setFavorites(newFavorites);
+    } else {
+      setFavorites([...favorites, id]);
     }
-  };
+    debugger;
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   return (
     <div id="character-detail" className="container">
@@ -91,39 +70,67 @@ function CharacterDetail(): ReactElement {
               </header>
               <div className="character-detail-description">
                 <div>
-                  <GiCrenulatedShield size={25} color={`var(--color-text-complement)`} />
+                  <GiCrenulatedShield
+                    size={25}
+                    color={`var(--color-text-complement)`}
+                  />
                   <strong>Status: </strong>
                   <p>{statusTranslations[character.status]}</p>
                 </div>
                 <hr />
                 <div>
-                  <BsGenderTrans size={25} color={`var(--color-text-complement)`} />
+                  <BsGenderTrans
+                    size={25}
+                    color={`var(--color-text-complement)`}
+                  />
                   <strong>Gênero: </strong>
                   <p>{genderTranslations[character.gender]}</p>
                 </div>
                 <hr />
                 <div>
-                  <GiAbstract023 size={25} color={`var(--color-text-complement)`} />
+                  <GiAbstract023
+                    size={25}
+                    color={`var(--color-text-complement)`}
+                  />
                   <strong>Subespécie: </strong>
                   <p>{typeTranslations[character.type]}</p>
                 </div>
                 <hr />
                 <div>
-                  <IoMdPlanet size={25} color={`var(--color-text-complement)`} />
+                  <IoMdPlanet
+                    size={25}
+                    color={`var(--color-text-complement)`}
+                  />
                   <strong>Origem: </strong>
-                  <p>{character.origin.name==="unknown"?"Indeterminado(a)":character.origin.name}</p>
+                  <p>
+                    {character.origin.name === "unknown"
+                      ? "Indeterminado(a)"
+                      : character.origin.name}
+                  </p>
                 </div>
                 <hr />
                 <div>
-                  <FaMapMarkedAlt size={25} color={`var(--color-text-complement)`} />
+                  <FaMapMarkedAlt
+                    size={25}
+                    color={`var(--color-text-complement)`}
+                  />
                   <strong>Última localização:</strong>
                   <p>{character.location.name}</p>
                 </div>
                 <hr />
-                
-                
-                
               </div>
+              <button
+                title={`Adicione ${character.name} aos favoritos!`}
+                className="button-favorite"
+                type="button"
+                onClick={() => handleFavorite(character.id)}
+              >
+                {favorites.includes(character.id) ? (
+                  <FaHeart />
+                ) : (
+                  <FaRegHeart />
+                )}
+              </button>
             </article>
           ) : (
             <p>Loading...</p>

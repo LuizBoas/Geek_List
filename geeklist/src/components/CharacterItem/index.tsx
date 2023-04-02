@@ -97,7 +97,7 @@ const CharacterItem: React.FC<CharacterItemProps> = ({
       </Link>
       <button
         title={`Adicione ${character.name} aos favoritos!`}
-        className="button-favorite"
+        className="button-detail-favorite"
         type="button"
         onClick={() => onFavorite(character.id)}
       >

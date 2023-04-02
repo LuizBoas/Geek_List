@@ -129,6 +129,23 @@
   color: var(--color-primary);
 }
 
+.character-item .button-detail-favorite {
+  position: relative;
+  bottom: 150.2rem;
+  left: 68.5rem;
+  background: none;
+  border: none;
+  font-size: 3rem;
+  color: var(--color-secundary);
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.character-item .button-detail-favorite:hover {
+  color: var(--color-secundary);
+  opacity: 0.6;
+}
+
 @media (min-width: 700px) {
   #character-detail {
     max-width: 100%;

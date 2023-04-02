@@ -3,8 +3,8 @@ import React, { SelectHTMLAttributes } from "react";
 import "./styles.css";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  label: string;
   name: string;
+  placeholder: string;
   options: Array<{
     value: string;
     label: string;
@@ -12,17 +12,16 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Select: React.FC<SelectProps> = ({
-  label,
   name,
+  placeholder,
   options,
   ...rest
 }: SelectProps) => {
   return (
     <div className="select-block">
-      <label htmlFor={name}>{label}</label>
       <select value="" id={name} {...rest}>
         <option value="" disabled hidden>
-          Selecione uma opção
+          {placeholder}
         </option>
         {options.map((option) => {
           return (

@@ -7,10 +7,6 @@
   margin-top: 3.2rem;
 }
 
-#search-characters label {
-  color: var(--color-line-in-white);
-}
-
 #character-container main {
   margin: 3.2rem auto;
   width: 90%;
