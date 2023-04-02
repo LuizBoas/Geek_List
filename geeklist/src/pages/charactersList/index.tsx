@@ -1,10 +1,4 @@
-import React, {
-  ReactElement,
-  useState,
-  FormEvent,
-  useEffect,
-  useRef,
-} from "react";
+import React, { ReactElement, useState, useEffect, useRef } from "react";
 import PageHeader from "../../components/PageHeader";
 import CharacterItem, { Character } from "../../components/CharacterItem";
 
@@ -15,14 +9,11 @@ import axios from "axios";
 import { FaSpinner } from "react-icons/fa";
 
 function CharactersList(): ReactElement {
-  const [subject, setSubject] = useState("");
-  const [weekDay, setWeekDay] = useState("");
-  const [time, setTime] = useState("");
-
   const [characters, setCharacters] = useState<Character[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [filter, setFilter] = useState<string>("");
+  const [favorites, setFavorites] = useState<number[]>([]);
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -70,8 +61,19 @@ function CharactersList(): ReactElement {
     setFilter(event.target.value);
   };
 
+  function handleFavorite(id: number) {
+    const index = favorites.findIndex((favoriteId) => favoriteId === id);
+    if (index >= 0) {
+      const newFavorites = [...favorites];
+      newFavorites.splice(index, 1);
+      setFavorites(newFavorites);
+    } else {
+      setFavorites([...favorites, id]);
+    }
+  }
+
   return (
-    <div id="page-characters-list" className="container">
+    <div id="character-container" className="container">
       <PageHeader title="Conheça os personagens complexos e multifacetados de Rick and Morty!">
         <form
           id="search-characters"
@@ -89,13 +91,15 @@ function CharactersList(): ReactElement {
 
       <main>
         {characters.map((characters: Character) => {
-          return <CharacterItem key={characters.id} character={characters} />;
+          return (
+            <CharacterItem
+              key={characters.id}
+              character={characters}
+              onFavorite={handleFavorite}
+              isFavorite={favorites.includes(characters.id)}
+            />
+          );
         })}
-        {loading && (
-          <div className="loading-container">
-            <FaSpinner className="spinner" />
-          </div>
-        )}
         <div ref={bottomRef} />
       </main>
     </div>

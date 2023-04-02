@@ -63,6 +63,25 @@
   background: var(--color-secundary-dark);
 }
 
+.favorite-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.favorite-button:hover {
+  transform: scale(1.2);
+}
+
+.favorite-button.favorited {
+  color: red;
+}
+
 @media (min-width: 1100px) {
   #page-facade-content {
     max-width: 1100px;

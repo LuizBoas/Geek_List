@@ -1,4 +1,4 @@
-#page-characters-list {
+#character-container {
   width: 100vw;
   height: 100vh;
 }
@@ -11,13 +11,13 @@
   color: var(--color-line-in-white);
 }
 
-#page-characters-list main {
+#character-container main {
   margin: 3.2rem auto;
   width: 90%;
 }
 
 @media (min-width: 700px) {
-  #page-characters-list {
+  #character-container {
     max-width: 100%;
   }
 
@@ -32,7 +32,7 @@
     margin-top: 0;
   }
 
-  #page-characters-list main {
+  #character-container main {
     padding: 3.2rem 0;
     max-width: 740px;
     margin: 0 auto;

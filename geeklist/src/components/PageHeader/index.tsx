@@ -6,6 +6,7 @@ import backIcon from "../../assets/images/icons/back.svg";
 import { AiOutlineRollback } from "react-icons/ai";
 
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
 interface PageHeaderProps {
   title: string;
@@ -18,15 +19,17 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   description,
   children,
 }: PageHeaderProps) => {
+  const navigate = useNavigate();
+
   return (
     <header className="page-header">
       <div className="top-bar-container">
-        <Link to="/">
+        <button type="button" onClick={() => navigate(-1)}>
           <AiOutlineRollback
             size={42}
             className={"top-bar-container-icon-back"}
           />
-        </Link>
+        </button>
         <img src={logoImg} alt="GeekList" />
       </div>
 

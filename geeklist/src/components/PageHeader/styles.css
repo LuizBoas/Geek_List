@@ -14,12 +14,15 @@
   padding: 1.6rem 0;
 }
 
-.page-header .top-bar-container a {
+.page-header .top-bar-container button {
   height: 3.2rem;
   transition: opacity 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.page-header .top-bar-container a:hover {
+.page-header .top-bar-container button:hover {
   opacity: 0.6;
 }
 
@@ -42,7 +45,7 @@
 .page-header .header-content strong {
   font: 700 3.6rem Archivo;
   line-height: 4.2rem;
-  color: var(--color-title-in-primary);
+  color: var(--color-primary-darker);
 }
 
 .page-header .header-content p {
