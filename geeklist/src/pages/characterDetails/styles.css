@@ -96,18 +96,37 @@
   font-size: 18px;
 }
 
-.character-detail-container .character-detail-location {
+.character-detail-container .character-detail-description div {
   margin-top: 5px;
-  margin-left: 3rem;
   display: flex;
   align-items: center;
 }
 
-.character-detail-container .character-detail-location p {
+.character-detail-container .character-detail-description strong {
   font-size: 18px;
   margin-top: 4px;
   margin-left: 0.5rem;
   color: var(--color-text-base);
+  font: 700 2.5rem Archivo;
+  display: block;
+  color: var(--color-text-complement);
+}
+
+.character-detail-container .character-detail-description {
+  margin-left: 3.5rem;
+  margin-right: 3.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.character-detail-container .character-detail-description hr {
+  margin-top: 0.3rem;
+  opacity: 0.5;
+}
+
+.character-detail-container .character-detail-description div p {
+  margin-top: 0.8rem;
+  margin-left: 8px;
+  color: var(--color-primary);
 }
 
 @media (min-width: 700px) {

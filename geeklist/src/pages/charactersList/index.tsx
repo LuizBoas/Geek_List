@@ -14,6 +14,7 @@ function CharactersList(): ReactElement {
   const [loading, setLoading] = useState<boolean>(false);
   const [filter, setFilter] = useState<string>("");
   const [favorites, setFavorites] = useState<number[]>([]);
+  // const [typeSearch, setTypeSerch] = useState
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -79,6 +80,26 @@ function CharactersList(): ReactElement {
           id="search-characters"
           onSubmit={(event) => event.preventDefault()}
         >
+          {/* <Select
+						name="select"
+						// value={subject}
+						// onChange={e => {
+						// 	setSubject(e.target.value);
+						// }}
+						options={[
+							{ value: 'Artes', label: 'Artes' },
+							{ value: 'Biologia', label: 'Biologia' },
+							{ value: 'Ciências', label: 'Ciências' },
+							{ value: 'Educação Física', label: 'Educação Física' },
+							{ value: 'Física', label: 'Física' },
+							{ value: 'Geografia', label: 'Geografia' },
+							{ value: 'Química', label: 'Química' },
+							{ value: 'História', label: 'História' },
+							{ value: 'Matemática', label: 'Matemática' },
+							{ value: 'Português', label: 'Português' },
+							{ value: 'Inglês', label: 'Inglês' },
+						]}
+					/> */}
           <Input
             id="search-characters-input"
             name="name"

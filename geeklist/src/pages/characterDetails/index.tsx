@@ -4,6 +4,9 @@ import PageHeader from "../../components/PageHeader";
 import {
   speciesTranslations,
   speciesColors,
+  genderTranslations,
+  typeTranslations,
+  statusTranslations,
 } from "./../../constants/character";
 import {
   FaRegSmile,
@@ -11,6 +14,9 @@ import {
   FaMapMarkedAlt,
   FaRegQuestionCircle,
 } from "react-icons/fa";
+import { IoMdPlanet } from "react-icons/io";
+import { BsGenderTrans } from "react-icons/bs";
+import { GiAbstract023, GiCrenulatedShield } from "react-icons/gi";
 
 import { Character } from "../../components/CharacterItem";
 import { useParams } from "react-router-dom";
@@ -83,17 +89,40 @@ function CharacterDetail(): ReactElement {
                   </span>
                 </div>
               </header>
-              <div className="character-detail-location">
-                <FaMapMarkedAlt size={25} color={`var(--color-text-base)`} />
-                <p>Última localização: {character.location.name}.</p>
-              </div>
-              <p>origem{character.origin.name}</p>
-              <p>{character.origin.url}</p>
-              <p>{character.type}</p>
-              <p>{character.gender}</p>
-              <p>{character.episode}</p>
-              <div className="character-status">
-                {getStatusIcon(character.status)}
+              <div className="character-detail-description">
+                <div>
+                  <GiCrenulatedShield size={25} color={`var(--color-text-complement)`} />
+                  <strong>Status: </strong>
+                  <p>{statusTranslations[character.status]}</p>
+                </div>
+                <hr />
+                <div>
+                  <BsGenderTrans size={25} color={`var(--color-text-complement)`} />
+                  <strong>Gênero: </strong>
+                  <p>{genderTranslations[character.gender]}</p>
+                </div>
+                <hr />
+                <div>
+                  <GiAbstract023 size={25} color={`var(--color-text-complement)`} />
+                  <strong>Subespécie: </strong>
+                  <p>{typeTranslations[character.type]}</p>
+                </div>
+                <hr />
+                <div>
+                  <IoMdPlanet size={25} color={`var(--color-text-complement)`} />
+                  <strong>Origem: </strong>
+                  <p>{character.origin.name==="unknown"?"Indeterminado(a)":character.origin.name}</p>
+                </div>
+                <hr />
+                <div>
+                  <FaMapMarkedAlt size={25} color={`var(--color-text-complement)`} />
+                  <strong>Última localização:</strong>
+                  <p>{character.location.name}</p>
+                </div>
+                <hr />
+                
+                
+                
               </div>
             </article>
           ) : (
