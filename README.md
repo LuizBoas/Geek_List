@@ -19,7 +19,6 @@
 2. Executando a Aplicação:
 
 ```sh
-  # API
   $ cd geeklist
   # Instalando as dependências do projeto.
   $ yarn # ou npm install
