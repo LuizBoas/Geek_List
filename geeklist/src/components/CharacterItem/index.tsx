@@ -14,6 +14,7 @@ import {
 import "./styles.css";
 import { Link } from "react-router-dom";
 
+// Define a interface Character que é usada no componente CharacterItem.
 export interface Character {
   id: number;
   name: string;
@@ -35,17 +36,20 @@ export interface Character {
   created: string;
 }
 
+// Define a interface CharacterItemProps que define as propriedades que o componente CharacterItem recebe.
 interface CharacterItemProps {
-  character: Character;
-  onFavorite: (id: number) => void;
-  isFavorite: boolean;
+  character: Character; // objeto Character que será renderizado.
+  onFavorite: (id: number) => void; // função callback que é chamada quando o usuário clica no botão de favoritos.
+  isFavorite: boolean; // valor booleano que indica se o personagem é favorito ou não.
 }
 
+// Define o componente CharacterItem que recebe as props definidas em CharacterItemProps.
 const CharacterItem: React.FC<CharacterItemProps> = ({
   character,
   isFavorite,
   onFavorite,
 }: CharacterItemProps) => {
+  // Função que recebe o status do personagem e retorna o ícone correspondente.
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "Alive":
@@ -75,6 +79,7 @@ const CharacterItem: React.FC<CharacterItemProps> = ({
     }
   };
 
+  // Renderiza o componente CharacterItem na tela.
   return (
     <article className="character-item">
       <Link to={`/personagem/${character.id}`}>
@@ -97,7 +102,7 @@ const CharacterItem: React.FC<CharacterItemProps> = ({
       </Link>
       <button
         title={`Adicione ${character.name} aos favoritos!`}
-        className="button-detail-favorite"
+        className="button-favorite"
         type="button"
         onClick={() => onFavorite(character.id)}
       >

@@ -35,9 +35,7 @@
 }
 
 .character-item .button-favorite {
-  position: relative;
-  bottom: 15.2rem;
-  left: 68.5rem;
+  margin-left: 91%;
   background: none;
   border: none;
   font-size: 3rem;
@@ -65,13 +63,13 @@
   text-decoration: none;
 }
 
-.character-status {
+.character-item a .character-status {
   position: relative;
-  bottom: 2.6rem;
-  left: 68.5rem;
+  bottom: -2rem;
+  left: 2rem;
   display: flex;
   align-items: center;
-  margin-bottom: -2.3rem;
+  margin-bottom: -1rem;
 }
 
 .character-status span {
@@ -93,9 +91,23 @@
   font-size: 17px;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 800px) {
   .character-item header,
   .character-item footer {
     padding: 3.2rem;
+  }
+
+  .character-item .button-favorite {
+    position: relative;
+    bottom: 15.2rem;
+    left: 68.5rem;
+    margin-left: 0rem;
+  }
+
+  .character-item a .character-status {
+    position: relative;
+    bottom: 2.6rem;
+    left: 68.5rem;
+    margin-bottom: -3rem;
   }
 }

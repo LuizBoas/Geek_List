@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import axios from "axios";
 import PageHeader from "../../components/PageHeader";
 import {
@@ -8,7 +8,7 @@ import {
   typeTranslations,
   statusTranslations,
 } from "./../../constants/character";
-import { FaHeart, FaMapMarkedAlt, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaMapMarkedAlt, FaRegHeart, FaSpinner } from "react-icons/fa";
 import { IoMdPlanet } from "react-icons/io";
 import { BsGenderTrans } from "react-icons/bs";
 import { GiAbstract023, GiCrenulatedShield } from "react-icons/gi";
@@ -17,14 +17,21 @@ import { Character } from "../../components/CharacterItem";
 import { useParams } from "react-router-dom";
 import "./styles.css";
 
+/**
+ * Componente que renderiza a página de detalhes de um personagem.
+ * @returns {ReactElement} Elemento React que representa a página de detalhes do personagem.
+ * */
 function CharacterDetail(): ReactElement {
   const { id } = useParams();
   const [character, setCharacter] = useState<Character>();
-  debugger;
   const [favorites, setFavorites] = useState<number[]>(
     JSON.parse(localStorage.getItem("favorites") || "[]")
   );
 
+  /**
+   * Busca as informações do personagem a partir do seu id.
+   * @param {number} id - Id do personagem.
+   * */
   useEffect(() => {
     axios
       .get(`https://rickandmortyapi.com/api/character/${id}`)
@@ -34,6 +41,17 @@ function CharacterDetail(): ReactElement {
       .catch((error) => console.log(error));
   }, [id]);
 
+  /**
+   * Atualiza a lista de favoritos do usuário no localStorage.
+   * */
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  /**
+   * Adiciona ou remove o personagem da lista de favoritos do usuário.
+   * @param {number} id - Id do personagem.
+   * */
   function handleFavorite(id: number) {
     const index = favorites.findIndex((favoriteId) => favoriteId === id);
     if (index >= 0) {
@@ -43,13 +61,8 @@ function CharacterDetail(): ReactElement {
     } else {
       setFavorites([...favorites, id]);
     }
-    debugger;
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }
-
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
 
   return (
     <div id="character-detail" className="container">
@@ -121,7 +134,7 @@ function CharacterDetail(): ReactElement {
               </div>
               <button
                 title={`Adicione ${character.name} aos favoritos!`}
-                className="button-favorite"
+                className="button-detail-favorite"
                 type="button"
                 onClick={() => handleFavorite(character.id)}
               >
@@ -133,7 +146,9 @@ function CharacterDetail(): ReactElement {
               </button>
             </article>
           ) : (
-            <p>Loading...</p>
+            <div className="loading-container">
+              <FaSpinner className="spinner" />
+            </div>
           )}
         </main>
       </PageHeader>

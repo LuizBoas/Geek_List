@@ -7,6 +7,9 @@ import Input from "../../components/Input";
 import Select from "../../components/Select";
 import axios from "axios";
 
+/**
+ * Componente que exibe os detalhes de um personagem da série Rick and Morty.
+ */
 function CharactersList(): ReactElement {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -19,10 +22,12 @@ function CharactersList(): ReactElement {
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  // Salva os personagens favoritos no localStorage
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
+  // Obtém uma lista de personagens da API do Rick and Morty e adiciona-os ao estado dos personagens
   useEffect(() => {
     axios
       .get(
@@ -37,6 +42,7 @@ function CharactersList(): ReactElement {
       .catch((error) => console.log(error));
   }, [page, filter, typeSearch]);
 
+  // Detecta quando o usuário chega ao final da lista e carrega mais personagens da API
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -54,15 +60,18 @@ function CharactersList(): ReactElement {
     };
   }, []);
 
+  // Limpa a lista de personagens e redefine a página atual quando o filtro de pesquisa é alterado
   useEffect(() => {
     setCharacters([]);
     setPage(1);
   }, [filter, typeSearch]);
 
+  // Altera o valor do estado do filtro quando o usuário digita no campo de pesquisa
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
   };
 
+  // Altera o valor do estado dos favoritos quando o usuário clica no botão de favoritos de um personagem
   function handleFavorite(id: number) {
     const index = favorites.findIndex((favoriteId) => favoriteId === id);
     if (index >= 0) {

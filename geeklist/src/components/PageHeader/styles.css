@@ -45,7 +45,7 @@
 .page-header .header-content strong {
   font: 700 3.6rem Archivo;
   line-height: 4.2rem;
-  color: var(--color-primary-darker);
+  color: var(--color-primary-light);
 }
 
 .page-header .header-content p {

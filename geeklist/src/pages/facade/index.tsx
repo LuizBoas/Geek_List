@@ -7,8 +7,7 @@ import logoImg from "../../assets/images/logo.png";
 import imageFacade from "../../assets/images/image-facade.png";
 import { BsBoxArrowInRight } from "react-icons/bs";
 
-import studyIcon from "../../assets/images/icons/study.svg";
-
+//Componente que faz a capa do site
 function Facade(): ReactElement {
   return (
     <div id="page-facade">

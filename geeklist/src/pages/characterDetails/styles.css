@@ -17,14 +17,13 @@
 
 .character-detail-container header {
   padding: 3.2rem 2rem;
-  display: flex;
-  align-items: center;
 }
 
 .character-detail-container header img {
   width: 25rem;
   height: 25rem;
   border-radius: 10%;
+  margin-left: 2rem;
 }
 
 .character-detail-container header div {
@@ -32,17 +31,17 @@
 }
 
 .character-detail-container header div .character-detail-strong {
-  font: 700 2.5rem Archivo;
+  font: 700 2rem Archivo;
   display: block;
   color: var(--color-text-title);
-  font-size: 5rem;
+  font-size: 4rem;
 }
 
 .character-detail-container header div span {
   font: 1.6rem;
   display: block;
   margin-top: 0.4rem;
-  font-size: 2.2rem;
+  font-size: 1.7rem;
 }
 
 .haracter-location {
@@ -103,7 +102,7 @@
 }
 
 .character-detail-container .character-detail-description strong {
-  font-size: 18px;
+  font-size: 2rem !important;
   margin-top: 4px;
   margin-left: 0.5rem;
   color: var(--color-text-base);
@@ -129,21 +128,40 @@
   color: var(--color-primary);
 }
 
-.character-item .button-detail-favorite {
+.button-detail-favorite {
   position: relative;
-  bottom: 150.2rem;
-  left: 68.5rem;
+  bottom: 0rem;
+  left: 0rem;
+  margin-left: 85%;
   background: none;
   border: none;
-  font-size: 3rem;
+  font-size: 4.5rem;
   color: var(--color-secundary);
   transition: color 0.2s;
   cursor: pointer;
 }
 
-.character-item .button-detail-favorite:hover {
+.button-detail-favorite:hover {
   color: var(--color-secundary);
   opacity: 0.6;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (min-width: 700px) {
@@ -160,5 +178,33 @@
     padding: 3.2rem 0;
     max-width: 740px;
     margin: 0 auto;
+  }
+
+  .character-detail-container header div .character-detail-strong {
+    font-size: 5rem;
+  }
+
+  .character-detail-container header div span {
+    font-size: 2.2rem;
+  }
+
+  .character-detail-container header {
+    padding: 3.2rem 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .character-detail-container header img {
+    margin-left: 0rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .button-detail-favorite {
+    position: relative;
+    bottom: 52.5rem;
+    left: 67.4rem;
+    margin-left: 0;
+    margin-top: -8rem;
   }
 }
