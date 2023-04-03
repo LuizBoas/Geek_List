@@ -22,7 +22,7 @@
   $ cd geeklist
   # Instalando as dependências do projeto.
   $ yarn # ou npm install
-  # Configurando o banco de dados e criando as tabelas.
+  # Rodando o projeto..
   $ yarn start # ou npm start
   # Aplicação web
 ```
