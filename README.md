@@ -1,4 +1,6 @@
-# Desafio_frontend_Green_Acesso
+# Geek_List
+
+O GeekList é um projeto voltado para fãs da série Rick and Morty, que oferece uma plataforma para listagem de personagens com informações detalhadas sobre cada um deles. O aplicativo apresenta uma tela de listagem que permite ao usuário buscar por um personagem específico de forma rápida e fácil.
 
 ## :rocket: Tecnologias
 
